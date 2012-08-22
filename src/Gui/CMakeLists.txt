@@ -59,6 +59,17 @@ IF(SPNAV_FOUND)
     )
 ENDIF(SPNAV_FOUND)
 
+IF(COSPNAV_FOUND)
+    add_definitions(-DCOSPNAV_FOUND)
+    include_directories(
+        ${COSPNAV_INCLUDE_DIR}
+    )
+    set(FreeCADGui_LIBS
+        ${FreeCADGui_LIBS}
+        ${COSPNAV_LIBRARIES}
+    )
+ENDIF(COSPNAV_FOUND)
+
 generate_from_xml(DocumentPy)
 generate_from_xml(PythonWorkbenchPy)
 generate_from_xml(ViewProviderPy)
@@ -755,6 +766,7 @@ SET(FreeCADGui_CPP_SRCS
     resource.cpp
     Control.cpp
     SpaceballEvent.cpp
+    3Dconnexion/TdxDeviceWrappersThreaded.cpp
     Thumbnail.cpp
     Utilities.cpp
     WaitCursor.cpp
@@ -776,6 +788,7 @@ SET(FreeCADGui_SRCS
     Qt4All.h
     Control.h
     SpaceballEvent.h
+    3Dconnexion/TdxDeviceWrappersThreaded.h
     Thumbnail.h
     Utilities.h
     WaitCursor.h

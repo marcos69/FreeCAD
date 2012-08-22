@@ -29,7 +29,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
 SET(COSPNAV_FOUND TRUE)
 
-SET(COSPNAV_LIBRARY "-framework 3DconnexionClient -framework Carbon" CACHE STRING "3Dconnexion library for OSX")
+SET(COSPNAV_LIBRARY "-weak_framework 3DconnexionClient -framework Carbon" CACHE STRING "3Dconnexion library for OSX")
 SET(COSPNAV_LIBRARIES ${COSPNAV_LIBRARY})
 
 

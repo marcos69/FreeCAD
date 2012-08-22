@@ -33,6 +33,11 @@
 #include "GuiApplicationNativeEventAware.h"
 #include "SpaceballEvent.h"
 
+#ifdef COSPNAV_FOUND
+#include "3Dconnexion/TdxDeviceWrappersThreaded.h"
+
+#endif
+
 //linux dependency libspnav-dev
 #ifdef Q_WS_X11
 #ifdef SPNAV_FOUND
@@ -92,6 +97,22 @@ void Gui::GUIApplicationNativeEventAware::initSpaceball(QMainWindow *window)
         }
     }
 #endif // _USE_3DCONNEXION_SDK
+
+#ifdef COSPNAV_FOUND
+
+        OSStatus err = TdxInitDevice('****',
+                        true, 
+                        kConnexionClientModeTakeOver, 
+                        kConnexionMaskAll);
+
+    if (err)
+        Base::Console().Log("Couldn't connect to 3Dconnexion driver\n");
+    else
+    {
+      Base::Console().Log("Connected to 3Dconnexions driver\n");
+        spaceballPresent = true;
+    }
+#endif
 
     Spaceball::MotionEvent::MotionEventType = QEvent::registerEventType();
     Spaceball::ButtonEvent::ButtonEventType = QEvent::registerEventType();
